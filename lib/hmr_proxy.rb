@@ -19,7 +19,11 @@ class HmrProxy < Rack::Proxy
   end
 
   def rewrite_env(env)
-    if env["PATH_INFO"].start_with?('/static/')
+    if env["PATH_INFO"].start_with?('/assets/bundle/')
+      if env["PATH_INFO"].end_with?('.js')&&!env["PATH_INFO"].end_with?('.hot-update.js')
+        path=env["PATH_INFO"].sub('/assets/bundle/','')
+        env["PATH_INFO"]='/assets/bundle/'+path.split('.')[0]+'.js'
+      end
       env["HTTP_HOST"] = "localhost:5000"
     end
     env

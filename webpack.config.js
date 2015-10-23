@@ -3,14 +3,15 @@ var webpack = require('webpack');
 
 module.exports = {
   devtool: 'eval',
-  entry: [
-    'webpack-hot-middleware/client?path=http://localhost:5000/__webpack_hmr',
-    './js/entry/app'
-  ],
+  entry: {
+    app: ['./js/entry/app'],
+    test:'./js/entry/test.js'
+  },
   output: {
     path: path.join(__dirname, 'app', 'assets', 'javascripts', 'bundle'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
+    filename: '[name]-bundle.js',
+    // filename: 'bundle.js',
+    publicPath: '/assets/bundle/'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

@@ -1,7 +1,20 @@
 var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
-var config = require('./webpack.config');
+var rawConfig = require('./webpack.config');
+var _ = require('underscore');
+
+var oldEntry = rawConfig.entry;
+var entries = _.keys(oldEntry);
+var newEntry = {};
+
+var hmrClient = 'webpack-hot-middleware/client?path=http://localhost:5000/__webpack_hmr&reload=true';
+
+_.each(entries, function(entry) {
+  newEntry[entry] = _.flatten([hmrClient, oldEntry[entry]]);
+});
+
+var config=_.extend(rawConfig,{entry:newEntry});
 
 var app = express();
 var compiler = webpack(config);
