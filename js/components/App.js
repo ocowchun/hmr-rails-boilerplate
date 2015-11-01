@@ -20,7 +20,7 @@ class Counter extends Component {
   render() {
     return (
       <h1>
-        Counter ({this.props.increment}):
+        Counter ({this.props.increment}): {this.state.counter}
       </h1>
     );
   }
@@ -30,8 +30,8 @@ export class App extends Component {
   render() {
     return (
       <div>
-<Counter/>
+      <Counter increment={1}/>
       </div>
-    );
+      );
   }
 }
